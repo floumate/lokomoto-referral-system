@@ -1,0 +1,9 @@
+{
+  "name": "lokomoto-referral-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lokomoto Centar giveaway — referral sistem",
+  "engines": {
+    "node": ">=18"
+  }
+}

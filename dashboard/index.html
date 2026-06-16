@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Moj referral — Lokomoto Centar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f8f8;
+    --card: #ffffff;
+    --heading: #1a1a1a;
+    --text: #4b5563;
+    --muted: #9ca3af;
+    --primary: #16a29d;
+    --primary-dark: #128882;
+    --primary-tint: rgba(22, 162, 157, 0.10);
+    --border: #e5e7eb;
+
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --card-padding: 28px;
+    --card-gap: 16px;
+    --font: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { background: var(--bg); }
+  html, body {
+    color: var(--text);
+    font-family: var(--font);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .page-bg { position: fixed; inset: 0; z-index: -1; background: var(--bg); pointer-events: none; }
+  .page-bg::after {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 460px;
+    background:
+      radial-gradient(620px 300px at 12% -10%, rgba(22,162,157,0.10), transparent 70%),
+      radial-gradient(620px 300px at 88% -10%, rgba(22,162,157,0.08), transparent 70%);
+  }
+
+  main { max-width: 680px; margin: 0 auto; padding: 52px 20px 88px; }
+
+  .brand {
+    display: inline-block;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 22px;
+  }
+
+  .hero { margin-bottom: 28px; }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(28px, 7vw, 40px);
+    letter-spacing: -0.02em; line-height: 1.12;
+    color: var(--heading);
+  }
+  .hero p { margin-top: 12px; color: var(--text); font-size: 16px; line-height: 1.55; }
+  .hero p strong { color: var(--heading); font-weight: 600; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--card-padding);
+    margin-bottom: var(--card-gap);
+    box-shadow: 0 1px 2px rgba(16,24,40,0.04), 0 12px 32px -24px rgba(16,24,40,0.20);
+  }
+
+  .card-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 16px;
+  }
+
+  /* ---- Count ---- */
+  .count-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .count-num {
+    font-weight: 700; font-size: 76px; line-height: 0.9; letter-spacing: -0.04em; color: var(--primary);
+  }
+  .count-caption { margin-top: 10px; color: var(--muted); font-size: 14px; font-weight: 500; }
+  .rank-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; border-radius: 999px;
+    border: 1px solid var(--primary); background: var(--primary-tint);
+    font-size: 13px; font-weight: 700; color: var(--primary-dark);
+  }
+  .rank-pill .rank-big { font-size: 18px; }
+
+  /* ---- Share ---- */
+  .share-row { display: flex; gap: 8px; align-items: stretch; }
+  .share-input {
+    flex: 1; min-width: 0;
+    background: #f9fafb; border: 1px solid var(--border); color: var(--heading);
+    font-family: var(--font); font-weight: 500; font-size: 14px;
+    padding: 14px 16px; border-radius: var(--radius-sm); outline: none;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .share-input:focus { border-color: var(--primary); background: #fff; }
+  .copy-btn {
+    background: var(--primary); color: #fff; border: none;
+    padding: 14px 26px; border-radius: var(--radius-sm);
+    font-family: var(--font); font-size: 14px; font-weight: 600; line-height: 1em;
+    cursor: pointer; white-space: nowrap; transition: background 0.15s, transform 0.1s;
+  }
+  .copy-btn:hover { background: var(--primary-dark); }
+  .copy-btn:active { transform: scale(0.97); }
+  .copy-btn.copied { background: #10b981; }
+  .share-hint { margin-top: 12px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+  /* ---- Referrals list ---- */
+  .ref-list { list-style: none; }
+  .ref-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 0; border-bottom: 1px solid var(--border); gap: 12px;
+  }
+  .ref-item:first-child { padding-top: 2px; }
+  .ref-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .ref-item-main { min-width: 0; flex: 1; }
+  .ref-name { font-size: 15px; font-weight: 600; color: var(--heading); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ref-email { font-size: 13px; color: var(--muted); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 2px; }
+  .ref-time { font-size: 12px; color: var(--muted); font-weight: 500; white-space: nowrap; }
+  .empty { text-align: center; padding: 16px 0 6px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+  /* ---- Leaderboard ---- */
+  .lb-list { list-style: none; }
+  .lb-item {
+    display: grid; grid-template-columns: 40px 1fr auto;
+    align-items: center; padding: 13px 0; border-bottom: 1px solid var(--border); gap: 14px;
+  }
+  .lb-item:first-child { padding-top: 2px; }
+  .lb-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .lb-item.me {
+    background: var(--primary-tint); border: 1px solid var(--primary);
+    border-radius: var(--radius-sm); padding: 13px 12px; margin: 4px -12px;
+  }
+  .lb-rank { font-weight: 700; font-size: 20px; line-height: 1; color: var(--muted); text-align: left; }
+  .lb-item.top-3 .lb-rank { color: var(--primary); }
+  .lb-name { font-size: 15px; font-weight: 600; color: var(--heading); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lb-email { font-size: 12px; color: var(--muted); font-weight: 500; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lb-count { font-weight: 700; font-size: 19px; color: var(--heading); }
+  .lb-count-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-left: 6px; }
+  .lb-foot { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+  .lb-foot .highlight { font-weight: 700; color: var(--primary-dark); }
+
+  /* ---- States ---- */
+  .loading { text-align: center; padding: 90px 20px; color: var(--muted); font-size: 17px; }
+  .error-box {
+    background: var(--card); border: 1px solid var(--border); color: var(--heading);
+    padding: 22px; border-radius: var(--radius-lg); font-size: 15px; line-height: 1.55; font-weight: 500;
+  }
+
+  /* ---- Toast ---- */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--heading); color: #fff;
+    padding: 13px 22px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 700; opacity: 0; pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s; box-shadow: 0 12px 30px rgba(0,0,0,0.25); z-index: 9999;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 480px) {
+    .count-num { font-size: 60px; }
+    .copy-btn { padding: 14px 18px; }
+    .lb-item { grid-template-columns: 32px 1fr auto; gap: 10px; }
+    .lb-rank { font-size: 17px; }
+    .lb-count { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-bg"></div>
+
+<main id="app">
+  <div class="loading" id="loading">Učitavanje…</div>
+</main>
+
+<div class="toast" id="toast">Link kopiran ✓</div>
+
+<script>
+  // ====== KONFIGURACIJA (popuni posle kreiranja Supabase projekta + Vercel deploy-a) ======
+  // Supabase: Settings → API → Project URL + publishable (sb_publishable_) ključ.
+  // Publishable ključ je JAVAN po dizajnu (tabela je zaključana RLS-om, čita se samo preko RPC + tokena).
+  const SUPABASE_URL = 'https://YOUR-PROJECT.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_XXXXXXXX';
+
+  // Bazni URL giveaway stranice na koju vodi referral link (ista kao GIVEAWAY_LANDING_URL u Vercel env).
+  const LANDING_URL = 'https://lokomoto.rs/giveaway';
+  // =========================================================================================
+
+  const params = new URLSearchParams(location.search);
+  const token = params.get('t');
+  const app = document.getElementById('app');
+  const isDemoMode = params.get('demo') === '1';
+
+  if (isDemoMode) {
+    render(demoData(), demoLeaderboard());
+  } else if (!token) {
+    renderError('Link nije ispravan. Iskoristi link koji si dobio/la posle prijave.');
+  } else {
+    loadAll(token);
+  }
+
+  function demoData() {
+    const now = Date.now();
+    return {
+      ref_code: 'X7K2M9', first_name: 'Marko', last_name: 'Marković',
+      referral_count: 4, my_rank: 2, total_with_referrals: 18,
+      referrals: [
+        { email: 'ana.petrovic@gmail.com', first_name: 'Ana', last_name: 'Petrović', created_at: new Date(now - 45*60*1000).toISOString() },
+        { email: 'stefan@outlook.com', first_name: 'Stefan', last_name: 'Jovanović', created_at: new Date(now - 3*3600*1000).toISOString() },
+        { email: 'milica.jovanovic@yahoo.com', first_name: 'Milica', last_name: 'Ilić', created_at: new Date(now - 26*3600*1000).toISOString() },
+      ],
+    };
+  }
+  function demoLeaderboard() {
+    return [
+      { rank: 1, first_name: 'Jovana', last_name: 'Stanković', email: 'j***@example.com', referral_count: 9, is_me: false },
+      { rank: 2, first_name: 'Marko', last_name: 'Marković', email: 'marko@example.com', referral_count: 4, is_me: true },
+      { rank: 3, first_name: 'Ivana', last_name: 'Đorđević', email: 'i***@example.com', referral_count: 3, is_me: false },
+      { rank: 4, first_name: 'Nikola', last_name: 'Petrović', email: 'n***@example.com', referral_count: 2, is_me: false },
+      { rank: 5, first_name: 'Petar', last_name: 'Nikolić', email: 'p***@example.com', referral_count: 1, is_me: false },
+    ];
+  }
+
+  async function loadAll(t) {
+    try {
+      const [me, board] = await Promise.all([
+        rpc('get_dashboard', { p_token: t }),
+        rpc('get_leaderboard', { p_token: t }),
+      ]);
+      const meRow = Array.isArray(me) ? me[0] : me;
+      if (!meRow) { renderError('Nismo pronašli tvoj dashboard. Proveri link.'); return; }
+      render(meRow, Array.isArray(board) ? board : []);
+    } catch (err) {
+      console.error(err);
+      renderError('Trenutno ne možemo da učitamo podatke. Pokušaj ponovo za minut.');
+    }
+  }
+
+  async function rpc(fn, body) {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) throw new Error(`${fn} ${res.status}`);
+    return res.json();
+  }
+
+  function render(data, board) {
+    const count = Number(data.referral_count || 0);
+    const firstName = data.first_name || '';
+    const refCode = data.ref_code;
+    const shareUrl = `${LANDING_URL}${LANDING_URL.includes('?') ? '&' : '?'}r=${refCode}`;
+    const referrals = Array.isArray(data.referrals) ? data.referrals : [];
+    const myRank = data.my_rank;
+
+    const greeting = firstName ? `Pozdrav, ${escapeHtml(vokativ(firstName))}!` : 'Pozdrav!';
+    const subtitle = count === 0
+      ? `Podeli svoj link — svako ko se prijavi preko njega ti <strong>povećava šanse</strong>. A ako neko koga pozoveš pobedi, nagradu osvajaš i ti 🍀`
+      : `Odlično! Već si doveo/la <strong>${count} ${plural(count)}</strong>. Nastavi da deliš — što više ljudi, veće su ti šanse 🍀`;
+
+    const rankBlock = (count > 0 && myRank)
+      ? `<div class="rank-pill"><span class="rank-big">#${myRank}</span><span>na lestvici</span></div>`
+      : '';
+
+    const leaderboardBlock = renderLeaderboard(board, myRank, count);
+
+    app.innerHTML = `
+      <span class="brand">Lokomoto Centar · Giveaway</span>
+      <div class="hero">
+        <h1>${greeting}</h1>
+        <p>${subtitle}</p>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Tvoje prijave</div>
+        <div class="count-row">
+          <div>
+            <div class="count-num">${count}</div>
+            <div class="count-caption">${count === 1 ? 'prijava preko tvog linka' : 'prijava preko tvog linka'}</div>
+          </div>
+          ${rankBlock}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Tvoj referral link</div>
+        <div class="share-row">
+          <input class="share-input" id="shareInput" value="${escapeHtml(shareUrl)}" readonly />
+          <button class="copy-btn" id="copyBtn">Kopiraj</button>
+        </div>
+        <div class="share-hint">Podeli ga gde god možeš. Svaka prijava preko ovog linka računa se tebi.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Ljudi koje si doveo/la (${count})</div>
+        ${referrals.length === 0
+          ? `<div class="empty">Još niko. Podeli link iznad i prati kako broj raste.</div>`
+          : `<ul class="ref-list">${referrals.map(renderRefItem).join('')}</ul>`}
+      </div>
+
+      ${leaderboardBlock}
+    `;
+
+    document.getElementById('copyBtn').addEventListener('click', onCopy);
+    document.getElementById('shareInput').addEventListener('click', (e) => e.target.select());
+  }
+
+  function renderLeaderboard(board, myRank, myCount) {
+    if (!board || board.length === 0) return '';
+    const rows = board.map((r) => {
+      const isMe = r.is_me === true;
+      const top3 = r.rank <= 3;
+      const name = [r.first_name, r.last_name].filter(Boolean).join(' ') || '-';
+      return `
+        <li class="lb-item ${isMe ? 'me' : ''} ${top3 ? 'top-3' : ''}">
+          <div class="lb-rank">${r.rank}</div>
+          <div>
+            <div class="lb-name">${escapeHtml(name)}</div>
+            <div class="lb-email">${escapeHtml(r.email || '')}</div>
+          </div>
+          <div><span class="lb-count">${r.referral_count}</span><span class="lb-count-label">${plural(Number(r.referral_count))}</span></div>
+        </li>`;
+    }).join('');
+
+    const showMyPosition = myRank != null && myRank > board.length;
+    const foot = showMyPosition
+      ? `<div class="lb-foot">Ti si <span class="highlight">#${myRank}</span> sa ${myCount} ${plural(myCount)}. Penji se ka vrhu.</div>`
+      : '';
+
+    return `
+      <div class="card">
+        <div class="card-label">Lestvica · Top ${board.length}</div>
+        <ul class="lb-list">${rows}</ul>
+        ${foot}
+      </div>`;
+  }
+
+  function renderRefItem(r) {
+    const full = [r.first_name, r.last_name].filter(Boolean).join(' ') || '-';
+    return `
+      <li class="ref-item">
+        <div class="ref-item-main">
+          <div class="ref-name">${escapeHtml(full)}</div>
+          <div class="ref-email">${escapeHtml(r.email || '')}</div>
+        </div>
+        <div class="ref-time">${formatTime(r.created_at)}</div>
+      </li>`;
+  }
+
+  async function onCopy() {
+    const btn = document.getElementById('copyBtn');
+    const input = document.getElementById('shareInput');
+    try { await navigator.clipboard.writeText(input.value); }
+    catch { input.select(); document.execCommand('copy'); }
+    btn.textContent = 'Kopirano ✓';
+    btn.classList.add('copied');
+    showToast();
+    setTimeout(() => { btn.textContent = 'Kopiraj'; btn.classList.remove('copied'); }, 2000);
+  }
+
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1800);
+  }
+
+  function renderError(msg) {
+    app.innerHTML = `<div class="error-box">${escapeHtml(msg)}</div>`;
+  }
+
+  function vokativ(ime) {
+    if (!ime) return '';
+    const n = String(ime).trim();
+    if (!n) return n;
+    const low = n.toLowerCase();
+    const exc = { 'petar': 'Petre', 'aleksandar': 'Aleksandre' };
+    if (exc[low]) return exc[low];
+    const last = low.charAt(low.length - 1);
+    if ('aeiou'.indexOf(last) >= 0) return n;
+    return n + 'e';
+  }
+
+  function plural(n) {
+    const mod10 = n % 10, mod100 = n % 100;
+    if (mod10 === 1 && mod100 !== 11) return 'prijava';
+    if ([2,3,4].includes(mod10) && ![12,13,14].includes(mod100)) return 'prijave';
+    return 'prijava';
+  }
+
+  function formatTime(iso) {
+    if (!iso) return '';
+    const then = new Date(iso).getTime();
+    if (isNaN(then)) return '';
+    const diff = Math.max(0, Date.now() - then);
+    const min = Math.floor(diff / 60000);
+    if (min < 1) return 'upravo sad';
+    if (min < 60) return `pre ${min} min`;
+    const h = Math.floor(min / 60);
+    if (h < 24) return `pre ${h} h`;
+    const d = Math.floor(h / 24);
+    if (d < 30) return `pre ${d} ${d === 1 ? 'dan' : 'dana'}`;
+    const dt = new Date(iso);
+    return `${dt.getDate()}.${dt.getMonth() + 1}.`;
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => (
+      { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+    ));
+  }
+</script>
+</body>
+</html>
