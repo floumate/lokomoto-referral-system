@@ -193,11 +193,12 @@
   // ====== KONFIGURACIJA (popuni posle kreiranja Supabase projekta + Vercel deploy-a) ======
   // Supabase: Settings → API → Project URL + publishable (sb_publishable_) ključ.
   // Publishable ključ je JAVAN po dizajnu (tabela je zaključana RLS-om, čita se samo preko RPC + tokena).
-  const SUPABASE_URL = 'https://YOUR-PROJECT.supabase.co';
-  const SUPABASE_ANON_KEY = 'sb_publishable_XXXXXXXX';
+  const SUPABASE_URL = 'https://xbceubsueuyvtpkwejvx.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_Jk6Rq39pF-Cw8M2NpLwg8g_IsTpDTKX';
 
   // Bazni URL giveaway stranice na koju vodi referral link (ista kao GIVEAWAY_LANDING_URL u Vercel env).
-  const LANDING_URL = 'https://lokomoto.rs/giveaway';
+  // TODO: promeni na Webflow giveaway URL kad bude poznat.
+  const LANDING_URL = 'https://floumate.github.io/lokomoto-giveaway/';
   // =========================================================================================
 
   const params = new URLSearchParams(location.search);
