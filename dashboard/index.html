@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex, nofollow" />
-<title>Moj referral — Lokomoto Centar</title>
+<title>Moj referral - Lokomoto Centar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -274,17 +274,16 @@
 
     const greeting = firstName ? `Pozdrav, ${escapeHtml(vokativ(firstName))}!` : 'Pozdrav!';
     const subtitle = count === 0
-      ? `Podeli svoj link — svako ko se prijavi preko njega ti <strong>povećava šanse</strong>. A ako neko koga pozoveš pobedi, nagradu osvajaš i ti 🍀`
-      : `Odlično! Već si doveo/la <strong>${count} ${plural(count)}</strong>. Nastavi da deliš — što više ljudi, veće su ti šanse 🍀`;
+      ? `Podeli svoj link - svako ko se prijavi preko njega ti <strong>povećava šanse</strong>. A ako neko koga pozoveš pobedi, nagradu osvajaš i ti 🍀`
+      : `Odlično! Već si doveo/la <strong>${count} ${plural(count)}</strong>. Nastavi da deliš - što više ljudi, veće su ti šanse 🍀`;
 
     const rankBlock = (count > 0 && myRank)
-      ? `<div class="rank-pill"><span class="rank-big">#${myRank}</span><span>na lestvici</span></div>`
+      ? `<div class="rank-pill"><span class="rank-big">#${myRank}</span><span>na leaderboard-u</span></div>`
       : '';
 
     const leaderboardBlock = renderLeaderboard(board, myRank, count);
 
     app.innerHTML = `
-      <span class="brand">Lokomoto Centar · Giveaway</span>
       <div class="hero">
         <h1>${greeting}</h1>
         <p>${subtitle}</p>
@@ -348,7 +347,7 @@
 
     return `
       <div class="card">
-        <div class="card-label">Lestvica · Top ${board.length}</div>
+        <div class="card-label">Leaderboard · Top ${board.length}</div>
         <ul class="lb-list">${rows}</ul>
         ${foot}
       </div>`;
